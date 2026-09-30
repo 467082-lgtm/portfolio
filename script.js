@@ -1,31 +1,36 @@
-// ===============================
+```javascript
+// ==============================
 // MOBILE MENU
-// ===============================
+// ==============================
 
 const menuBtn = document.getElementById("menuBtn");
-const nav = document.querySelector(".navbar nav");
+const navMenu = document.getElementById("navMenu");
 
 menuBtn.addEventListener("click", () => {
-    nav.classList.toggle("active");
+    navMenu.classList.toggle("active");
 });
 
 
-// ===============================
+// ==============================
 // CLOSE MENU AFTER CLICK
-// ===============================
+// ==============================
 
-const navLinks = document.querySelectorAll(".navbar nav a");
+const navLinks = document.querySelectorAll("#navMenu a");
 
 navLinks.forEach(link => {
+
     link.addEventListener("click", () => {
-        nav.classList.remove("active");
+
+        navMenu.classList.remove("active");
+
     });
+
 });
 
 
-// ===============================
+// ==============================
 // ACTIVE NAVIGATION
-// ===============================
+// ==============================
 
 const sections = document.querySelectorAll("section[id]");
 
@@ -35,24 +40,27 @@ window.addEventListener("scroll", () => {
 
     sections.forEach(section => {
 
-        const sectionTop = section.offsetTop - 150;
-        const sectionHeight = section.offsetHeight;
+        const sectionTop = section.offsetTop - 180;
 
-        if (
-            window.scrollY >= sectionTop &&
-            window.scrollY < sectionTop + sectionHeight
-        ) {
+        if (window.scrollY >= sectionTop) {
+
             current = section.getAttribute("id");
+
         }
 
     });
+
 
     navLinks.forEach(link => {
 
         link.classList.remove("active");
 
-        if (link.getAttribute("href") === "#" + current) {
+        if (
+            link.getAttribute("href") === "#" + current
+        ) {
+
             link.classList.add("active");
+
         }
 
     });
@@ -60,34 +68,20 @@ window.addEventListener("scroll", () => {
 });
 
 
-// ===============================
-// SCROLL ANIMATION
-// ===============================
+// ==============================
+// IMAGE ERROR CHECK
+// ==============================
 
-const animatedElements = document.querySelectorAll(
-    ".portfolio-card, .activity-card, .certificate-container"
-);
+document.querySelectorAll("img").forEach(img => {
 
-const observer = new IntersectionObserver(
-    entries => {
+    img.addEventListener("error", () => {
 
-        entries.forEach(entry => {
+        console.log(
+            "ไม่พบรูป:",
+            img.src
+        );
 
-            if (entry.isIntersecting) {
+    });
 
-                entry.target.classList.add("show");
-
-            }
-
-        });
-
-    },
-    {
-        threshold: 0.15
-    }
-);
-
-
-animatedElements.forEach(element => {
-    observer.observe(element);
 });
+```
